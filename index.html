@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Belated Birthday, Elene!</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@300;400;600;800&family=Sacramento&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPink: '#ff758c',
+                        brandPurple: '#b19ffb',
+                        brandBlue: '#70a1ff',
+                        brandGold: '#ffd166',
+                        darkBg: '#080612'
+                    },
+                    fontFamily: {
+                        handwriting: ['Sacramento', 'cursive'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        cute: ['Fredoka', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth scrolling layout */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #080612;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* Continuous Ambient RGB Neon Border Glow */
+        .rgb-box {
+            position: relative;
+            background: rgba(18, 14, 36, 0.78);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 117, 140, 0.2);
+        }
+
+        .rgb-box::before {
+            content: '';
+            position: absolute;
+            inset: -2.5px;
+            border-radius: 30px;
+            padding: 2.5px;
+            background: linear-gradient(90deg, #ff007f, #7f00ff, #00f0ff, #ff007f, #ffd166, #ff007f);
+            background-size: 400% 400%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: animateGlow 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes animateGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glowing Gradient Text Effects */
+        .rgb-text {
+            background: linear-gradient(90deg, #ff758c, #ff7eb3, #b19ffb, #70a1ff, #ffd166, #ff758c);
+            background-size: 300% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            animation: textShine 6s linear infinite;
+        }
+
+        @keyframes textShine {
+            to { background-position: 300% center; }
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card-hover:hover {
+            transform: translateY(-6px) scale(1.01);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 20px 40px rgba(255, 117, 140, 0.25);
+        }
+
+        /* Page Display State */
+        .page-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .page-content.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Anime Stickers */
+        .floating-sticker {
+            animation: floatSticker 4s ease-in-out infinite;
+        }
+        .floating-sticker-alt {
+            animation: floatSticker 4.5s ease-in-out infinite 2s;
+        }
+
+        @keyframes floatSticker {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        /* 3D Flip Card Style */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner, .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Audio Visualizer Waveform */
+        .sound-bar {
+            width: 3.5px;
+            background: linear-gradient(to top, #ff758c, #ffd166);
+            border-radius: 3px;
+            animation: bounceVisualizer 1.2s ease-in-out infinite alternate;
+        }
+        .sound-bar:nth-child(1) { height: 14px; animation-delay: 0.1s; }
+        .sound-bar:nth-child(2) { height: 24px; animation-delay: 0.3s; }
+        .sound-bar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+        .sound-bar:nth-child(4) { height: 20px; animation-delay: 0.4s; }
+        .sound-bar:nth-child(5) { height: 16px; animation-delay: 0.5s; }
+
+        @keyframes bounceVisualizer {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1.1); }
+        }
+
+        .sound-bar.paused {
+            animation-play-state: paused;
+            height: 5px !important;
+        }
+
+        /* Custom Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080612;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ff758c, #70a1ff);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="text-white relative bg-darkBg selection:bg-pink-500 selection:text-white">
+
+    <!-- CANVAS ANIMATION BACKGROUND -->
+    <canvas id="bgCanvas" class="fixed inset-0 pointer-events-auto z-0"></canvas>
+
+    <!-- FLOATING INTERACTIVE CLICK EFFECTS CONTAINER -->
+    <div id="clickEffectsContainer" class="fixed inset-0 pointer-events-none z-50"></div>
+
+    <!-- HEADER / ROW NAVIGATION & AUDIO PLAYER -->
+    <header class="sticky top-0 left-0 w-full z-40 px-4 py-3 bg-black/40 backdrop-blur-xl border-b border-white/10 shadow-xl">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Branding Badge -->
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-pink-500/30 ring-2 ring-white/40">
+                    <span class="text-2xl">🌸</span>
+                </div>
+                <div>
+                    <h1 class="font-cute text-lg md:text-xl font-bold tracking-wide flex items-center gap-2">
+                        <span>Elene Realm</span>
+                        <span class="text-xs bg-red-500/20 text-red-300 px-2.5 py-0.5 rounded-full border border-red-400/30 font-sans flex items-center gap-1">
+                            <span>🇬🇪</span> Georgia
+                        </span>
+                    </h1>
+                    <p class="text-xs text-pink-300/80">Belated Birthday Special</p>
+                </div>
+            </div>
+
+            <!-- ROW-WISE HORIZONTAL NAV TABS -->
+            <nav class="flex items-center gap-1.5 bg-white/10 p-1.5 rounded-2xl border border-white/15 backdrop-blur-md shadow-inner overflow-x-auto max-w-full">
+                <button onclick="switchTab(1)" id="tab-1" class="nav-btn active px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 whitespace-nowrap bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg">
+                    <i class="fa-solid fa-cake-candles text-yellow-300"></i>
+                    <span>Wishes</span>
+                </button>
+                <button onclick="switchTab(2)" id="tab-2" class="nav-btn px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 whitespace-nowrap text-white/70 hover:text-white hover:bg-white/10">
+                    <i class="fa-solid fa-heart text-pink-400"></i>
+                    <span>Bestie</span>
+                </button>
+                <button onclick="switchTab(3)" id="tab-3" class="nav-btn px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 whitespace-nowrap text-white/70 hover:text-white hover:bg-white/10">
+                    <i class="fa-solid fa-rose text-red-400"></i>
+                    <span>Promises</span>
+                </button>
+                <button onclick="switchTab(4)" id="tab-4" class="nav-btn px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 whitespace-nowrap text-white/70 hover:text-white hover:bg-white/10">
+                    <i class="fa-solid fa-wand-magic-sparkles text-cyan-300"></i>
+                    <span>Blessings</span>
+                </button>
+                <button onclick="switchTab(5)" id="tab-5" class="nav-btn px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 whitespace-nowrap text-white/70 hover:text-white hover:bg-white/10">
+                    <i class="fa-solid fa-fireworks text-amber-400"></i>
+                    <span>Fireworks</span>
+                </button>
+            </nav>
+
+            <!-- Audio Player Controls -->
+            <div class="flex items-center gap-3 bg-white/10 px-3.5 py-1.5 rounded-2xl border border-white/15">
+                <button id="playAudioBtn" onclick="toggleAudio()" class="w-9 h-9 rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 hover:scale-105 flex items-center justify-center text-white transition-all transform active:scale-95 shadow-md">
+                    <i id="audioIcon" class="fa-solid fa-music text-xs"></i>
+                </button>
+                <div class="hidden sm:flex flex-col text-[10px]">
+                    <span id="songTitle" class="font-bold text-pink-200 truncate max-w-[110px]">Birds of a Feather Ambient</span>
+                    <span class="text-white/50">Lofi Vibes</span>
+                </div>
+                <!-- Waveform Visualizer -->
+                <div id="visualizer" class="flex items-end gap-1 h-6 px-1">
+                    <div class="sound-bar paused"></div>
+                    <div class="sound-bar paused"></div>
+                    <div class="sound-bar paused"></div>
+                    <div class="sound-bar paused"></div>
+                    <div class="sound-bar paused"></div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- HIDDEN AUDIO ELEMENT -->
+    <audio id="bgAudio" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"></audio>
+
+    <!-- MAIN MULTI-PAGE CONTENT CONTAINER -->
+    <main class="relative z-10 w-full max-w-6xl mx-auto py-10 px-4 md:px-6">
+
+        <!-- ================= PAGE 1: HAPPY BIRTHDAY WISHES ================= -->
+        <section id="page-1" class="page-content active w-full flex-col items-center justify-center">
+            <div class="rgb-box p-6 md:p-12 w-full text-center relative overflow-hidden flex flex-col items-center">
+                
+                <!-- Anime Sticker Decor -->
+                <div class="absolute top-6 left-6 floating-sticker text-4xl md:text-6xl cursor-pointer" onclick="triggerStickerEffect(event, '🐱')">
+                    🐱
+                </div>
+                <div class="absolute top-6 right-6 floating-sticker-alt text-4xl md:text-6xl cursor-pointer" onclick="triggerStickerEffect(event, '🧸')">
+                    🧸
+                </div>
+
+                <!-- Georgia Badge -->
+                <div class="inline-flex items-center gap-2 bg-gradient-to-r from-red-500/20 via-pink-500/20 to-white/20 border border-red-400/40 px-5 py-1.5 rounded-full text-xs font-bold tracking-widest text-pink-200 mb-6 shadow-md">
+                    <span>🇬🇪 GEORGIA CELEBRATION QUEEN</span>
+                </div>
+
+                <h2 class="font-cute text-4xl md:text-6xl lg:text-7xl font-extrabold rgb-text mb-3 leading-tight">
+                    Happy Belated Birthday Elene! 🎂✨
+                </h2>
+                <p class="font-handwriting text-2xl md:text-4xl text-yellow-300 mb-8 drop-shadow-md">
+                    To my absolute favorite person in the entire world!
+                </p>
+
+                <!-- Detailed Paragraph 1 (NO BRACKETS) -->
+                <div class="glass-card p-6 md:p-8 rounded-3xl text-left border border-white/20 space-y-4 max-w-4xl mb-8 leading-relaxed text-gray-200">
+                    <h3 class="font-cute text-2xl font-bold text-pink-300 flex items-center gap-2">
+                        <span>💖 A Special Note For My Bestie Elene</span>
+                    </h3>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        Dearest Elene, I know I missed sending my birthday wishes right on time last night, and I am so deeply sorry for that. But true bond is never measured by clocks or timers, it is measured in the heart. I could not just send a generic late message, so I spent time building this entire digital universe just for you, packed with vibrant colors, neon glowing lights, floating rose petals, snowfall, and fireworks.
+                    </p>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        You bring so much light, chaotic laughter, warmth, and grace from Georgia into my life. Every conversation with you turns an ordinary day into something bright and cheerful. On this belated birthday, I want you to remember how extraordinarily special, talented, and loved you truly are by everyone around you.
+                    </p>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        May your upcoming year be filled with unforgettable adventures, delicious meals, endless smiles, peace of mind, and all the success you have been working so hard for. Happy Birthday again, dearest Elene.
+                    </p>
+                </div>
+
+                <!-- Interactive Buttons Row -->
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <button onclick="popConfetti()" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-bold text-sm md:text-base shadow-xl shadow-pink-500/30 transform hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-gift text-yellow-300 text-xl"></i>
+                        <span>Pop Birthday Celebration!</span>
+                    </button>
+                    <button onclick="switchTab(2)" class="px-7 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold text-sm md:text-base backdrop-blur-md transform hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                        <span>Explore Bestie Realm</span>
+                        <i class="fa-solid fa-arrow-right text-pink-300"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: BEST FRIEND & SISTERHOOD ================= -->
+        <section id="page-2" class="page-content w-full flex-col items-center justify-center">
+            <div class="rgb-box p-6 md:p-12 w-full text-center">
+                
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-pink-400 uppercase tracking-widest bg-pink-500/10 px-4 py-1.5 rounded-full border border-pink-500/20">Chapter 02 • Sisterhood</span>
+                    <h2 class="font-cute text-3xl md:text-5xl font-bold text-pink-200 mt-3">Bestie & Friendship Chronicle</h2>
+                    <p class="text-xs md:text-sm text-gray-300 mt-2">Falling Hearts & Soft Anime Aesthetic 💕</p>
+                </div>
+
+                <!-- Detailed Paragraph 2 (NO BRACKETS) -->
+                <div class="glass-card p-6 md:p-8 rounded-3xl text-left border border-white/20 space-y-4 max-w-4xl mx-auto mb-8 leading-relaxed text-gray-200">
+                    <h3 class="font-cute text-2xl font-bold text-pink-300 flex items-center gap-2">
+                        <span>🐱 Why Elene is My Absolute Best Friend</span>
+                    </h3>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        Having you as my best friend is one of the greatest privileges in my life. Elene, you are that rare kind of friend who listens without judging, laughs at the silly moments, and offers genuine comfort whenever things get tough. No matter how many miles lie between us, your friendship feels like home.
+                    </p>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        From random gossip sessions to deep conversations about life and future goals, every single memory created with you is cherished. Your unique blend of Georgian charm, sweet personality, and adorable energy makes you impossible not to love.
+                    </p>
+                </div>
+
+                <!-- Row of 3D Flip Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-8">
+                    
+                    <!-- Card 1 -->
+                    <div class="flip-card h-72 w-full cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl shadow-xl">
+                            <div class="flip-card-front glass-card absolute inset-0 p-6 flex flex-col justify-between rounded-2xl border border-white/20 bg-gradient-to-br from-pink-500/20 to-purple-600/20">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-3xl">🐱</span>
+                                    <i class="fa-solid fa-arrows-rotate text-sm text-white/50"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-cute text-2xl font-bold text-yellow-300">My HG & Bestie</h3>
+                                    <p class="text-xs text-white/70 mt-1">Click to flip card...</p>
+                                </div>
+                                <div class="text-right text-xs font-mono text-pink-300">01 • GEORGIA VIBE</div>
+                            </div>
+                            <div class="flip-card-back glass-card absolute inset-0 p-6 flex flex-col justify-center rounded-2xl border border-pink-400/40 bg-purple-950/95 text-white">
+                                <h4 class="font-bold text-pink-300 text-base mb-2">Unbreakable Bond 💖</h4>
+                                <p class="text-xs md:text-sm text-gray-200 leading-relaxed">
+                                    Distance means nothing when the bond is real. You are my default person to share every piece of good news with!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="flip-card h-72 w-full cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl shadow-xl">
+                            <div class="flip-card-front glass-card absolute inset-0 p-6 flex flex-col justify-between rounded-2xl border border-white/20 bg-gradient-to-br from-purple-500/20 to-blue-600/20">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-3xl">🧸</span>
+                                    <i class="fa-solid fa-arrows-rotate text-sm text-white/50"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-cute text-2xl font-bold text-cyan-300">Pure Joy Vibe</h3>
+                                    <p class="text-xs text-white/70 mt-1">Click to flip card...</p>
+                                </div>
+                                <div class="text-right text-xs font-mono text-purple-300">02 • ENERGY</div>
+                            </div>
+                            <div class="flip-card-back glass-card absolute inset-0 p-6 flex flex-col justify-center rounded-2xl border border-cyan-400/40 bg-indigo-950/95 text-white">
+                                <h4 class="font-bold text-cyan-300 text-base mb-2">Purest Heart ✨</h4>
+                                <p class="text-xs md:text-sm text-gray-200 leading-relaxed">
+                                    Your chaotic humor, gentle heart, and bright personality light up every conversation. Never change!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="flip-card h-72 w-full cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl shadow-xl">
+                            <div class="flip-card-front glass-card absolute inset-0 p-6 flex flex-col justify-between rounded-2xl border border-white/20 bg-gradient-to-br from-red-500/20 to-pink-600/20">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-3xl">👑</span>
+                                    <i class="fa-solid fa-arrows-rotate text-sm text-white/50"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-cute text-2xl font-bold text-pink-300">Forever Sister</h3>
+                                    <p class="text-xs text-white/70 mt-1">Click to flip card...</p>
+                                </div>
+                                <div class="text-right text-xs font-mono text-red-300">03 • ALWAYS</div>
+                            </div>
+                            <div class="flip-card-back glass-card absolute inset-0 p-6 flex flex-col justify-center rounded-2xl border border-red-400/40 bg-pink-950/95 text-white">
+                                <h4 class="font-bold text-pink-300 text-base mb-2">Always In Your Corner 👑</h4>
+                                <p class="text-xs md:text-sm text-gray-200 leading-relaxed">
+                                    Through all ups and downs, I promise to stand right beside you. You deserve all the galaxy's happiness!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button onclick="switchTab(3)" class="px-7 py-3 rounded-xl bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/40 text-pink-200 text-sm font-semibold transition-all">
+                    Next: Read Promises to My Bestie <i class="fa-solid fa-heart ml-1.5 text-red-400"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: PROMISES TO ELENE ================= -->
+        <section id="page-3" class="page-content w-full flex-col items-center justify-center">
+            <div class="rgb-box p-6 md:p-12 w-full text-center relative">
+                
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-red-400 uppercase tracking-widest bg-red-500/10 px-4 py-1.5 rounded-full border border-red-500/20">Chapter 03 • Sacred Promises</span>
+                    <h2 class="font-cute text-3xl md:text-5xl font-bold rgb-text mt-3">Promises to Elene 🌹</h2>
+                    <p class="text-xs md:text-sm text-gray-300 mt-2">Falling Rose Petals Rain for Georgia’s Rose</p>
+                </div>
+
+                <!-- Detailed Paragraph 3 (NO BRACKETS) -->
+                <div class="glass-card p-6 md:p-8 rounded-3xl text-left border border-white/20 space-y-4 max-w-4xl mx-auto mb-8 leading-relaxed text-gray-200">
+                    <h3 class="font-cute text-2xl font-bold text-red-300 flex items-center gap-2">
+                        <span>🌹 A Vow of Lifetime Support & Friendship</span>
+                    </h3>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        Best friends are the family we choose for ourselves, and I choose you over and over again, Elene. As you enter this new chapter of your life, I want to make a set of sacred promises to you, promises of unwavering loyalty, endless support, and constant encouragement.
+                    </p>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        No matter how busy life gets, how far apart we are, or what challenges come along, these promises stand firm. Here is my word to you.
+                    </p>
+                </div>
+
+                <!-- Promises List Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-4xl mx-auto mb-8">
+                    
+                    <div class="glass-card glass-card-hover p-5 rounded-2xl border-l-4 border-l-pink-500 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-500/20 flex items-center justify-center shrink-0 text-2xl">
+                            🌹
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-pink-200 text-base">1. Always Hear You Out</h4>
+                            <p class="text-xs md:text-sm text-gray-300 mt-1">I promise to always listen to your late night stories, happiness, or sad moments without any judgment.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card glass-card-hover p-5 rounded-2xl border-l-4 border-l-purple-500 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center shrink-0 text-2xl">
+                            🎂
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-purple-200 text-base">2. Never Miss Wishes Again</h4>
+                            <p class="text-xs md:text-sm text-gray-300 mt-1">I promise that next time, your birthday wishes will reach you right as the clock strikes midnight.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card glass-card-hover p-5 rounded-2xl border-l-4 border-l-cyan-500 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center shrink-0 text-2xl">
+                            🇬🇪
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-cyan-200 text-base">3. Georgia Visit Goal</h4>
+                            <p class="text-xs md:text-sm text-gray-300 mt-1">I promise we will celebrate one of your upcoming birthdays together in Georgia eating delicious Georgian food.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card glass-card-hover p-5 rounded-2xl border-l-4 border-l-yellow-500 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-yellow-500/20 flex items-center justify-center shrink-0 text-2xl">
+                            ✨
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-yellow-200 text-base">4. Hype You Up Forever</h4>
+                            <p class="text-xs md:text-sm text-gray-300 mt-1">I promise to always be your biggest cheerleader in every single goal, dream, and adventure you pursue.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button onclick="switchTab(4)" class="px-7 py-3 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/40 text-purple-200 text-sm font-semibold transition-all">
+                    Next: Warm Blessings & Duaen <i class="fa-solid fa-wand-magic-sparkles ml-1.5 text-cyan-300"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: BLESSINGS & PRAYERS ================= -->
+        <section id="page-4" class="page-content w-full flex-col items-center justify-center">
+            <div class="rgb-box p-6 md:p-12 w-full text-center">
+                
+                <div class="mb-8">
+                    <span class="text-xs font-bold text-cyan-300 uppercase tracking-widest bg-cyan-500/10 px-4 py-1.5 rounded-full border border-cyan-500/20">Chapter 04 • Pure Blessings</span>
+                    <h2 class="font-cute text-3xl md:text-5xl font-bold text-cyan-200 mt-3">Blessings & Prayers ✨</h2>
+                    <p class="text-xs md:text-sm text-gray-300 mt-2">Serene Crystal Snowfall Realm ❄️</p>
+                </div>
+
+                <!-- Detailed Paragraph 4 (NO BRACKETS) -->
+                <div class="glass-card p-6 md:p-8 rounded-3xl text-left border border-white/20 space-y-4 max-w-4xl mx-auto mb-8 leading-relaxed text-gray-200">
+                    <h3 class="font-cute text-2xl font-bold text-cyan-300 flex items-center gap-2">
+                        <span>🤲 Deepest Prayers for Your Future</span>
+                    </h3>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        Elene, on this special milestone, my heart is filled with prayers and well wishes for you. I pray that your path in life is blessed with immense success, protection, and true joy. May every step you take bring you closer to your grandest dreams, and may difficulty never linger near your door.
+                    </p>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        May your life be surrounded by genuine people who love, value, and respect you for the incredible human being you are.
+                    </p>
+                </div>
+
+                <!-- Grid of 4 Blessings Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-left max-w-4xl mx-auto mb-8">
+                    
+                    <div class="glass-card p-6 rounded-2xl border border-cyan-300/30 bg-blue-950/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-3xl">🤲</span>
+                            <h3 class="font-bold text-cyan-300 text-lg">Health & Peaceful Mind</h3>
+                        </div>
+                        <p class="text-xs md:text-sm text-gray-300 leading-relaxed">
+                            May your new year of life be blessed with perfect health, peaceful thoughts, and total freedom from stress or worries.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-pink-300/30 bg-purple-950/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-3xl">💫</span>
+                            <h3 class="font-bold text-pink-300 text-lg">Dreams Realized</h3>
+                        </div>
+                        <p class="text-xs md:text-sm text-gray-300 leading-relaxed">
+                            I pray that every door you knock on opens wide for you, and every goal you work for becomes your victory.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-yellow-300/30 bg-amber-950/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-3xl">🌸</span>
+                            <h3 class="font-bold text-yellow-300 text-lg">Unending Smiles</h3>
+                        </div>
+                        <p class="text-xs md:text-sm text-gray-300 leading-relaxed">
+                            May your days be filled with warm tea, soft aesthetic moments, cozy memories, and endless laughter with loved ones.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-purple-300/30 bg-indigo-950/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-3xl">🛡️</span>
+                            <h3 class="font-bold text-purple-300 text-lg">Divine Protection</h3>
+                        </div>
+                        <p class="text-xs md:text-sm text-gray-300 leading-relaxed">
+                            May you always remain safe, cherished, and protected from negativity, shining as bright as the stars above Georgia.
+                        </p>
+                    </div>
+
+                </div>
+
+                <button onclick="switchTab(5)" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-pink-500 to-purple-600 text-white font-extrabold text-sm md:text-base shadow-xl transform hover:scale-105 active:scale-95 transition-all">
+                    Proceed to Grand Fireworks Finale 🎆
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 5: GRAND CELEBRATION & FIREWORKS ================= -->
+        <section id="page-5" class="page-content w-full flex-col items-center justify-center">
+            <div class="rgb-box p-6 md:p-12 w-full text-center relative overflow-hidden">
+                
+                <div class="mb-6">
+                    <span class="text-xs font-bold text-yellow-300 uppercase tracking-widest bg-yellow-500/10 px-4 py-1.5 rounded-full border border-yellow-500/20">Grand Finale</span>
+                    <h2 class="font-cute text-4xl md:text-6xl font-extrabold rgb-text mt-3">
+                        Fireworks Showcase for Elene! 🎆
+                    </h2>
+                    <p class="text-xs md:text-sm text-pink-200 mt-2">Click anywhere on the screen to launch custom colored fireworks bursts!</p>
+                </div>
+
+                <!-- Detailed Paragraph 5 (NO BRACKETS) -->
+                <div class="glass-card p-6 md:p-8 rounded-3xl text-left border border-white/20 space-y-4 max-w-4xl mx-auto mb-8 leading-relaxed text-gray-200">
+                    <h3 class="font-cute text-2xl font-bold text-yellow-300 flex items-center gap-2">
+                        <span>🎆 Celebrations Beyond Boundaries</span>
+                    </h3>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        Elene, this final page is dedicated entirely to pure celebration. You deserve a sky full of bursting colors, glowing fireworks, and loud cheers. Thank you for being such an extraordinary friend, a sister at heart, and the brightest presence from Georgia.
+                    </p>
+                    <p class="text-sm md:text-base leading-relaxed">
+                        Click the buttons below to trigger full fireworks spectacles or open your secret personal letter!
+                    </p>
+                </div>
+
+                <!-- Interactive Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
+                    <button onclick="launchFireworksFinale()" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 text-white font-bold text-sm md:text-base shadow-xl transform hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                        <span>💥 Launch Mega Fireworks Show</span>
+                    </button>
+                    <button onclick="openSecretModal()" class="px-7 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-sm md:text-base backdrop-blur-md transform hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                        <span>💌 Open Final Letter</span>
+                    </button>
+                </div>
+
+                <p class="text-xs text-white/50">Specially crafted for Elene from Georgia</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SECRET LETTER POPUP MODAL -->
+    <div id="secretModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-lg hidden transition-all duration-300">
+        <div class="glass-card rgb-box p-6 md:p-10 max-w-xl w-full text-center relative rounded-3xl">
+            <button onclick="closeSecretModal()" class="absolute top-5 right-5 text-white/60 hover:text-white text-2xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-5xl mb-3">💌</div>
+            <h3 class="font-cute text-3xl font-bold text-pink-300 mb-4">A Personal Note for Elene</h3>
+            <div class="text-xs md:text-sm text-gray-200 text-left space-y-4 max-h-[60vh] overflow-y-auto pr-3 leading-relaxed">
+                <p>Hey Elene,</p>
+                <p>
+                    I hope this website brought a huge smile to your face today. Even though I could not send my wishes last night right on time, please know that you are deeply appreciated and valued as my best friend.
+                </p>
+                <p>
+                    Georgia is lucky to have someone as sweet, funny, and bright as you. May this year ahead bring you endless success, health, happiness, and unforgettable moments.
+                </p>
+                <p class="font-bold text-pink-300 text-right mt-6">
+                    — Your Best Friend Forever 💖
+                </p>
+            </div>
+            <button onclick="closeSecretModal()" class="mt-6 px-8 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xs uppercase tracking-wider">
+                Close Letter
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT PARTICLE & INTERACTION ENGINE ================= -->
+    <script>
+        let activePage = 1;
+        
+        // Canvas Setup
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Background Particles Arrays
+        let particles = [];
+        let fireworksExplosions = [];
+
+        // Tab Switching Logic
+        function switchTab(pageNumber) {
+            if (pageNumber === activePage) return;
+            
+            // Hide current page
+            const currentEl = document.getElementById(`page-${activePage}`);
+            const currentTab = document.getElementById(`tab-${activePage}`);
+            if (currentEl) currentEl.classList.remove('active');
+            if (currentTab) {
+                currentTab.className = "nav-btn px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 whitespace-nowrap text-white/70 hover:text-white hover:bg-white/10";
+            }
+
+            // Show new page
+            activePage = pageNumber;
+            const nextEl = document.getElementById(`page-${activePage}`);
+            const nextTab = document.getElementById(`tab-${activePage}`);
+            if (nextEl) nextEl.classList.add('active');
+            if (nextTab) {
+                nextTab.className = "nav-btn active px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 whitespace-nowrap bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg";
+            }
+
+            // Scroll smoothly to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Reset particle system for active page theme
+            initParticlesForPage(activePage);
+
+            // Trigger fireworks if on Page 5
+            if (activePage === 5) {
+                launchFireworksFinale();
+            }
+        }
+
+        // Initialize particles based on page theme
+        function initParticlesForPage(page) {
+            particles = [];
+
+            if (page === 1) { // BALLOONS
+                for (let i = 0; i < 35; i++) {
+                    particles.push({
+                        type: 'balloon',
+                        x: Math.random() * width,
+                        y: height + Math.random() * 300,
+                        radius: 14 + Math.random() * 14,
+                        color: ['#ff758c', '#b19ffb', '#70a1ff', '#ffd166', '#ff7eb3'][Math.floor(Math.random() * 5)],
+                        speedY: 1 + Math.random() * 1.5,
+                        swing: Math.random() * 2,
+                        swingSpeed: 0.02 + Math.random() * 0.02
+                    });
+                }
+            } else if (page === 2) { // HEARTS
+                for (let i = 0; i < 50; i++) {
+                    particles.push({
+                        type: 'heart',
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        size: 10 + Math.random() * 14,
+                        color: ['#ff4d6d', '#ff758c', '#ff8fa3', '#c77dff'][Math.floor(Math.random() * 4)],
+                        speedY: 0.8 + Math.random() * 1.2,
+                        opacity: 0.4 + Math.random() * 0.6
+                    });
+                }
+            } else if (page === 3) { // ROSE PETALS
+                for (let i = 0; i < 55; i++) {
+                    particles.push({
+                        type: 'petal',
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        size: 8 + Math.random() * 12,
+                        color: ['#e63946', '#ff4d6d', '#ff758c', '#d62828'][Math.floor(Math.random() * 4)],
+                        speedY: 1 + Math.random() * 1.5,
+                        rotation: Math.random() * 360,
+                        rotSpeed: (Math.random() - 0.5) * 2
+                    });
+                }
+            } else if (page === 4) { // SNOW
+                for (let i = 0; i < 80; i++) {
+                    particles.push({
+                        type: 'snow',
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: 2 + Math.random() * 3.5,
+                        color: '#ffffff',
+                        speedY: 0.5 + Math.random() * 1.2,
+                        opacity: 0.5 + Math.random() * 0.5
+                    });
+                }
+            } else if (page === 5) { // FIREWORKS DUST
+                for (let i = 0; i < 50; i++) {
+                    particles.push({
+                        type: 'snow',
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: 1.5 + Math.random() * 2,
+                        color: '#ffd166',
+                        speedY: 0.3 + Math.random() * 0.8,
+                        opacity: 0.6
+                    });
+                }
+            }
+        }
+
+        // Particle Render Engine
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach((p) => {
+                if (p.type === 'balloon') {
+                    p.y -= p.speedY;
+                    p.x += Math.sin(p.y * p.swingSpeed) * 0.6;
+
+                    if (p.y < -60) {
+                        p.y = height + 60;
+                        p.x = Math.random() * width;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y + p.radius);
+                    ctx.lineTo(p.x, p.y + p.radius + 18);
+                    ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                    ctx.stroke();
+
+                } else if (p.type === 'heart') {
+                    p.y += p.speedY;
+                    if (p.y > height + 20) p.y = -20;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.opacity;
+                    ctx.beginPath();
+                    ctx.arc(-p.size/2, 0, p.size/2, 0, Math.PI, true);
+                    ctx.arc(p.size/2, 0, p.size/2, 0, Math.PI, true);
+                    ctx.lineTo(0, p.size);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.restore();
+
+                } else if (p.type === 'petal') {
+                    p.y += p.speedY;
+                    p.rotation += p.rotSpeed;
+                    if (p.y > height + 20) p.y = -20;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, p.size, p.size / 2, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+
+                } else if (p.type === 'snow') {
+                    p.y += p.speedY;
+                    if (p.y > height + 10) p.y = -10;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.opacity;
+                    ctx.fill();
+                    ctx.globalAlpha = 1.0;
+                }
+            });
+
+            // Handle Fireworks Animations
+            for (let i = fireworksExplosions.length - 1; i >= 0; i--) {
+                let ex = fireworksExplosions[i];
+                ex.x += ex.vx;
+                ex.y += ex.vy;
+                ex.vy += 0.04; // gravity
+                ex.alpha -= 0.015;
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(ex.x, ex.y, ex.radius, 0, Math.PI * 2);
+                ctx.fillStyle = ex.color;
+                ctx.globalAlpha = Math.max(ex.alpha, 0);
+                ctx.fill();
+                ctx.restore();
+
+                if (ex.alpha <= 0) {
+                    fireworksExplosions.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // Firework Creation
+        function createFirework(x, y) {
+            const colors = ['#ff758c', '#ffd166', '#70a1ff', '#b19ffb', '#00f0ff', '#ff007f'];
+            const numParticles = 45;
+            for (let i = 0; i < numParticles; i++) {
+                const angle = (Math.PI * 2 / numParticles) * i;
+                const speed = 2.5 + Math.random() * 4.5;
+                fireworksExplosions.push({
+                    x: x,
+                    y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    radius: 2 + Math.random() * 2.5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: 1
+                });
+            }
+        }
+
+        // Click Event for Fireworks & Floating Emojis
+        window.addEventListener('click', (e) => {
+            if (e.target.closest('button') || e.target.closest('nav') || e.target.closest('#secretModal')) return;
+            
+            createFirework(e.clientX, e.clientY);
+            createFloatingEmoji(e.clientX, e.clientY, activePage === 3 ? '🌹' : (activePage === 2 ? '💖' : '✨'));
+        });
+
+        // Floating Emoji Effect
+        function createFloatingEmoji(x, y, emoji) {
+            const el = document.createElement('div');
+            el.innerText = emoji;
+            el.className = 'fixed text-2xl pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-out';
+            el.style.left = `${x}px`;
+            el.style.top = `${y}px`;
+            document.getElementById('clickEffectsContainer').appendChild(el);
+
+            setTimeout(() => {
+                el.style.transform = 'translate(-50%, -80px) scale(1.5)';
+                el.style.opacity = '0';
+            }, 20);
+
+            setTimeout(() => el.remove(), 750);
+        }
+
+        function triggerStickerEffect(e, emoji) {
+            e.stopPropagation();
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const rx = e.clientX + (Math.random() - 0.5) * 90;
+                    const ry = e.clientY + (Math.random() - 0.5) * 90;
+                    createFloatingEmoji(rx, ry, emoji);
+                }, i * 100);
+            }
+        }
+
+        function popConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 110,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        function launchFireworksFinale() {
+            popConfetti();
+            let count = 0;
+            const interval = setInterval(() => {
+                const rx = Math.random() * width;
+                const ry = Math.random() * (height * 0.6);
+                createFirework(rx, ry);
+                count++;
+                if (count > 14) clearInterval(interval);
+            }, 180);
+        }
+
+        // Audio Toggle Engine
+        const bgAudio = document.getElementById('bgAudio');
+        const playAudioBtn = document.getElementById('playAudioBtn');
+        const audioIcon = document.getElementById('audioIcon');
+        const visualizerBars = document.querySelectorAll('.sound-bar');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                bgAudio.pause();
+                audioIcon.className = "fa-solid fa-music text-xs";
+                visualizerBars.forEach(bar => bar.classList.add('paused'));
+                isPlaying = false;
+            } else {
+                bgAudio.play().then(() => {
+                    audioIcon.className = "fa-solid fa-pause text-xs";
+                    visualizerBars.forEach(bar => bar.classList.remove('paused'));
+                    isPlaying = true;
+                }).catch(() => {
+                    alert('Click anywhere on the screen first to enable sound play!');
+                });
+            }
+        }
+
+        function openSecretModal() {
+            document.getElementById('secretModal').classList.remove('hidden');
+        }
+
+        function closeSecretModal() {
+            document.getElementById('secretModal').classList.add('hidden');
+        }
+
+        // Start animation loop on window load
+        window.onload = function() {
+            initParticlesForPage(1);
+            animateCanvas();
+
+            document.body.addEventListener('click', function autoPlayOnce() {
+                if (!isPlaying) {
+                    toggleAudio();
+                }
+                document.body.removeEventListener('click', autoPlayOnce);
+            }, { once: true });
+        };
+    </script>
+</body>
+</html>
